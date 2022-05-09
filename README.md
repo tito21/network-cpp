@@ -6,7 +6,7 @@ written in C++11. It's heavily inspired by the implementation in python from the
 first chapter of the [Neural Networks and Deep
 Learning](http://neuralnetworksanddeeplearning.com/) by  Michael Nielse.
 
-It uses the [Armadillo](http://arma.sourceforge.net/) libery for matrix
+It uses the [Armadillo](http://arma.sourceforge.net/) library for matrix
 operations
 
 Using the two hidden layers with units 64, 32 and a learning rate of 3 achieves
