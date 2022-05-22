@@ -64,8 +64,8 @@ Dense::Dense(int units_in, int units_out)
 {
   weights = arma::mat(units_out, units_in, arma::fill::randn);
   bias = arma::mat(units_out, 1, arma::fill::zeros);
-  zero_grad();
-}
+  grad_w = arma::zeros(arma::size(weights));
+  grad_b = arma::zeros(arma::size(bias));}
 
 arma::mat Dense::forward(arma::mat x)
 {
@@ -76,8 +76,8 @@ arma::mat Dense::forward(arma::mat x)
 
 void Dense::zero_grad()
 {
-  grad_w = arma::zeros(arma::size(weights));
-  grad_b = arma::zeros(arma::size(bias));
+  grad_w.fill(0);
+  grad_b.fill(0);
 
 }
 
