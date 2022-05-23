@@ -183,18 +183,20 @@ void NN::fit(vector<arma::mat> x_train, vector<arma::mat> y_train,
 
       double loss = 0.0;
       double corr_count = 0.0;
+      arma::mat grad_loss = arma::zeros(y_batch[0].size());
       for (int k=0; k < x_batch.size(); k++) {
         auto x = x_batch[k];
         auto y = y_batch[k];
 
         auto y_pred = forward(x);
         loss += MSE(y_pred, y) / batch_size;
-        auto grad_loss = MSE_prime(y_pred, y);
+        grad_loss = MSE_prime(y_pred, y);
         zero_grad();
         backward(grad_loss);
         update_weights(lr, batch_size);
         corr_count += y_pred.index_max() == y.index_max();
       } // samples
+
       double acc = corr_count / batch_size;
 
       loss_epoch += loss / steps;
@@ -233,7 +235,7 @@ int main()
   Dataloader test_data = Dataloader("dataset/test", 10000);
 
   NN net = NN(28*28, {64, 32, 10});
-
+  cout << "Training starts" << endl;
   net.fit(train_data.x, train_data.y, test_data.x, test_data.y, 3, 64, 10);
   return 0;
 }
