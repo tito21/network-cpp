@@ -236,6 +236,10 @@ int main()
 
   NN net = NN(28*28, {64, 32, 10});
   cout << "Training starts" << endl;
+  auto start = chrono::high_resolution_clock::now();
   net.fit(train_data.x, train_data.y, test_data.x, test_data.y, 3, 64, 10);
+  auto stop = chrono::high_resolution_clock::now();
+  auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
+  cout << "Total training time: " << duration.count() << "s" << endl;
   return 0;
 }
